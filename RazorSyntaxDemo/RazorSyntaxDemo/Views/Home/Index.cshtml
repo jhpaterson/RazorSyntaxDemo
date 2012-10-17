@@ -1,0 +1,53 @@
+﻿@model RazorSyntaxDemo.Models.Product
+           
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@* COMMENT *@
+
+<h3>Code block (no output)</h3>
+@{
+    int x = 10;
+    string[] items = { "banana", "apple", "orange", "kiwi", "mango" };
+    string rootNamespace = "RazorSyntaxDemo";
+    string message = "<script>alert('Hello');</script>";
+    bool showMessage = true;
+}
+
+<h3>Implicit code expressions</h3>
+<span>@Model.ProductName</span><br />
+@*<span>@rootNamespace.Models</span>*@
+
+<h3>Explicit code expressions</h3>
+<span>Product name: @(Model.ProductName)</span><br />
+<span>@(rootNamespace).Models</span>
+
+<h3>Html encoded</h3>
+<span>@message</span>
+
+<h3>Html raw</h3>
+<span>@Html.Raw(message)</span>
+
+<h3>Combining code and markup</h3>
+<ul>
+@foreach(var item in items){
+    <li>@item</li>
+}
+</ul>
+
+<h3>Combining code and plain text</h3>
+@if (showMessage){
+    @:This is plain text
+}
+
+<h3>Razor delegate</h3>
+@{
+  Func<dynamic, object> b = 
+   @<strong>@item</strong>;
+}
+@b("Bold this")
+
+
+@*see also http://haacked.com/archive/2011/01/06/razor-syntax-quick-reference.aspx*@
